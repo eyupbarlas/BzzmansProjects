@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Bzzman's Chat App</title>
+    <style>
+        div.msgbbl{
+            background-color:cadetblue;
+            padding: 5px 10px;
+            border-radius: 10px;
+            color:black;
+            margin-bottom: 5px;
+        }
+    </style>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  jquery google cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- <svg width="1em" height="1em" id="1" viewBox="0 0 16 16" class="bi bi-arrow-bar-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M11.354 10.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L8 12.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+        <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5V13a.5.5 0 0 1-1 0V6.5A.5.5 0 0 1 8 6zM2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+      </svg> -->
+    <div class="container-fluid">
+        <div class="well text-center">
+            <br><br>
+            <h4>Bzzman's Chat App</h4>
+            <hr>
+        </div>
+        
+    </div>
+
+            <form action="" method="POST">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div id="nosmg">
+                            <h2 style="color: #ccc;">No message yet.</h2>
+                            <div class="msg-wrapper"></div>
+                            <ul id="dummy">      
+                                {% for msg in dummy %}
+                                    <li>{{ msg }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="nosmg">
+                            <label for="username1">Username</label>
+                      <input type="text" class="username form-control" placeholder="Username">
+                        </div>
+                        <div id="nosmg">
+                            <label for="Message1">Message</label>
+                      <input type="text" class="message form-control" placeholder="Message">
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                    
+                </div>
+                <hr>
+            </form>
+        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+    <script>
+        var socket = io.connect('http://localhost:5000/')
+        // broadcast a message
+        socket.on('connect' , function(){
+            socket.emit('my event', {
+                data : 'User Connected'
+            })
+        })
+        var form = $('form').on('submit', function(e){
+            e.preventDefault()
+            var userName = $('input.username').val()
+            var message = $('input.message').val()
+            
+            socket.emit('my event',{
+                'user' : userName,
+                'msg' : message
+            })
+
+            // socket.emit('my event',{
+            //     user : userName,
+            //     msg : message
+            // })
+            // emptying the writing bar
+            $('input.message').val('').focus()
+        })
+        // capture message
+
+        socket.on('my response', function (msg) {  // frontend part
+            if( typeof msg.user !== 'undefined'){
+                $('h2').remove()
+                $('div.msg-wrapper').append( '<div class="msgbbl"><b>'+msg.user+'</b>'+' '+msg.msg+'</div>' )
+            }
+            console.log(msg)
+        })
+
+    </script>
+
+</body>
+</html>
