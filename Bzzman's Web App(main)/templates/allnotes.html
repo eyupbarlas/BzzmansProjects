@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+    
+    <h3>All Notes</h3>
+    <hr>
+    
+    {% if query %}
+    <form action="/search" method="POST">
+        <input class="form-control form-control-borderless" type="search" placeholder="Search topics or keywords">
+        <br>
+        <button class="btn btn-primary" type="submit">Search(*)</button>
+    </form>
+    <hr>
+    <ul class="list-group">
+        
+        {% for note in query %}
+        <li class="list-group-item"><a href="/note/{{note['_id']}}">{{ note['title'] }}</a></li>
+        <!-- Image files are have visual bugs. -->
+        
+        {% endfor %}
+            
+    </ul>   
+    {% else %}
+    <div class = "alert alert-danger" > No records. </div>
+    {% endif %}
+    <hr>
+    <p>(*) --> Searching system is unable to work now. Maintaining process continues. Thanks for your patience.</p>
+
+{% endblock body %}
+    

@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+<div class="jumbotron text-center">
+    <h1> {{session["nickname"]}}'s Note Recorder</h1>
+</div>
+<hr>
+<h4>Options</h4>
+<br>
+<a href="/dashboard/addnote" class="btn btn-primary"> Add Note </a>
+<p> </p>
+<hr>
+{% if result %}
+<h3>Notes Dashboard</h3>
+<hr>
+<table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Date</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for note in result %}  
+          <tr>
+              <td><a href="/note/{{note['_id']}}">{{note['title']}}</a></td>
+              <td>{{note['date']}} </td>
+              <td><a href="/edit/{{note['_id']}}" class="btn btn-danger">Edit </a></td>
+              <td><a href="/delete/{{note['_id']}}" class="btn btn-danger">Delete </a></td>
+          </tr>
+      {% endfor %}
+          
+    </tbody>
+  </table>
+{% else %}
+<div class = "alert alert-danger" > No note record exist. </div>
+{% endif %}
+    
+
+    
+{% endblock body %}

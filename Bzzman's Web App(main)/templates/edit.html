@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+    
+    <h2>Edit Note</h2>
+    <hr>
+    {% from "includes/formhelpers.html" import render_field %}  
+    <div class="container">
+        <form method="POST">
+            <dl>
+                {{render_field(form.title,class = "form-control")}}
+                {{render_field(form.content,class = "form-control")}}    
+                <hr>
+                <button type="submit" class="btn btn-danger">Update</button>       
+            </dl>
+        </form>
+    </div>
+    
+
+{% endblock body %}
+    

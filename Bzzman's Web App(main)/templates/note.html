@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+    
+
+
+{% if myNote %}
+<h4>
+    {{myNote['title']}}
+    <hr>
+    Creation Date : {{myNote['date']}}
+    <hr>
+</h4>
+<p>{{myNote['content']|safe}}</p>
+{% else %}
+<div class="alert alert-warning">
+    Note does not exist.
+</div>
+{% endif %}
+
+    
+    
+
+{% endblock body %}
+    
+

@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    {% from "includes/formhelpers.html" import render_field %}  
+    <div class="container">
+        <h3>Login</h3>
+        <hr>
+        <form method="POST">
+            <dl>
+                {{render_field(form.nicknameEntry)}}
+                {{render_field(form.passwordEntry)}}    
+                <hr>
+                <!--<div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me">
+                        Remember me
+                    </label>
+                </div> -->
+                <button type="submit" class="btn btn-primary">Login</button>       
+            </dl>
+        </form>
+    </div>
+
+{% endblock body %}
+    

@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+    {% from "includes/formhelpers.html" import render_field %} 
+    <h3>Register</h3>
+    <hr>
+        <form method="POST">
+         <!-- form'da action kısmını sildim çünkü bu sayfaya POST request yapmak istiyoruz.-->
+                               <!--https://flask.palletsprojects.com/en/1.1.x/patterns/wtforms/-->
+        <dl>
+            {{render_field(form.firstName,class = "form-control")}}
+            {{render_field(form.lastName,class = "form-control")}}
+            {{render_field(form.nickname,class = "form-control")}}
+            {{render_field(form.email,class = "form-control")}}
+            {{render_field(form.passwd,class = "form-control")}}
+            {{render_field(form.confirmPasswd,class = "form-control")}}
+            <!-- <label for="fname">First name:</label>
+            <input type="text" id="fname" name="fname"><br><br>
+            <label for="lname">Last name:</label>
+            <input type="text" id="lname" name="lname"><br><br>
+            <hr> -->
+            <button type="submit" id="btnregister" class="btn btn-primary">Submit</button>
+        </dl>
+        </form>
+{% endblock body %}
+
+
+{% block script %}
+    <!-- <script>
+        $(document).ready(function() {
+        $('form').submit(function (e) {
+            var url = "";
+            
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $('form').serialize(),
+                success: function (user) {
+                    console.log(user)
+                }
+            });
+            e.preventDefault(); // Formun 'geleneksel' olarak gönderilmesini engeller.
+        });
+    });
+    </script> -->
+{% endblock script %}
+    
+    
