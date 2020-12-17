@@ -14,7 +14,6 @@ random_sleep1 = random.uniform(1,7)
 random_sleep2 = random.uniform(1,6)
 random_sleep3 = random.uniform(1,4)
 
-# username: Bzzman   pass: 1234    @fattmabalik @taylankilic12 @enginozcnn
 # start 
 print("                                            ")
 print("""
