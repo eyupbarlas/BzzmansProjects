@@ -301,7 +301,7 @@ def addFood():
         Calories = request.form['calories']
         Yield = request.form['yield']
         Recipe = request.form['recipe']
-        #! DEVELOPMENT PART BELOW
+        
         newFood = Foods(FoodName=FoodName, FoodCategoryId=FoodCategoryId, CuisineId=CuisineId, DifficultyId=DifficultyId, CookingPlaceId=CookPlaceId,
                         CookingTime=CookTime, IsFav=IsFav, FoodTypeId=FoodTypeId, Calories=Calories, Yield=Yield, PriceId=PriceId, RatingId=RatingId, Recipe=Recipe) 
 
@@ -315,7 +315,6 @@ def addFood():
                                            cookplaceQuery=cookplaceQuery, isFavQuery=isFavQuery, foodtypeQuery=foodtypeQuery)
 
 #* Delete food page
-#! PROBLEMATIC
 @app.route('/delete/<string:id>')
 @login_required
 def deleteFood(id):
@@ -337,7 +336,6 @@ def deleteFood(id):
         return redirect(url_for('dashboard'))
 
 #* Edit Food page 
-#! buradaki query çağırma kodunu güncelle!
 @app.route('/update/<string:id>', methods=["GET","POST"])
 @login_required
 def updateFood(id):
