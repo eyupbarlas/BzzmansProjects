@@ -39,40 +39,201 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: getfood1(integer); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: food_fav_changes(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION public.getfood1(categoryid integer) RETURNS TABLE(food_name character varying, cat_id integer, cat_name character varying)
+CREATE FUNCTION public.food_fav_changes() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+	
+	IF NEW."isFav" <> OLD."isFav" THEN
+        INSERT INTO favourites("isFav", "CreationDate")
+        VALUES(OLD."isFav", OLD."CreationDate");
+    
+    END IF;
+	
+	RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.food_fav_changes() OWNER TO postgres;
+
+--
+-- Name: food_updates(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.food_updates() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN  
+        INSERT INTO foods("FoodId", "FoodName", "FoodCategoryId", "CuisineId", "DifficultyId", "Calories", "CookingPlaceId", "FoodTypeId", "Yield", "PriceId", "RatingId", "CookingTime", "Recipe", "CreationDate")
+        VALUES(OLD."FoodId", OLD."FoodName", OLD."FoodCategoryId", OLD."CuisineId", OLD."DifficultyId", OLD."Calories", OLD."CookingPlaceId", OLD."FoodTypeId", OLD."Yield", OLD."PriceId", OLD."RatingId", OLD."CookingTime", OLD."Recipe", OLD."CreationDate");
+        RETURN OLD;
+   
+    END IF;
+
+    IF TG_OP = 'INSERT' THEN
+        INSERT INTO foods("FoodId", "FoodName", "FoodCategoryId", "CuisineId", "DifficultyId", "Calories", "CookingPlaceId", "FoodTypeId", "Yield", "PriceId", "RatingId", "CookingTime", "Recipe", "CreationDate")
+        VALUES(NEW."FoodId", NEW."FoodName", NEW."FoodCategoryId", NEW."CuisineId", NEW."DifficultyId", NEW."Calories", NEW."CookingPlaceId", NEW."FoodTypeId", NEW."Yield", NEW."PriceId", NEW."RatingId", NEW."CookingTime", NEW."Recipe", NEW."CreationDate");
+        RETURN NEW;
+    
+    END IF;
+
+    IF TG_OP = 'UPDATE' THEN
+        INSERT INTO foods("FoodId", "FoodName", "FoodCategoryId", "CuisineId", "DifficultyId", "Calories", "CookingPlaceId", "FoodTypeId", "Yield", "PriceId", "RatingId", "CookingTime", "Recipe", "CreationDate")
+        VALUES(OLD."FoodId", OLD."FoodName", OLD."FoodCategoryId", OLD."CuisineId", OLD."DifficultyId", OLD."Calories", OLD."CookingPlaceId", OLD."FoodTypeId", OLD."Yield", OLD."PriceId", OLD."RatingId", OLD."CookingTime", OLD."Recipe", OLD."CreationDate");
+	RETURN NEW;
+	
+	END IF;
+	
+END;
+$$;
+
+
+ALTER FUNCTION public.food_updates() OWNER TO postgres;
+
+--
+-- Name: foodprices(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.foodprices() RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    foodCount INTEGER;
+BEGIN
+    SELECT count(*) into foodCount FROM GetFoodAndPrice();
+    RETURN foodCount;
+
+END;
+$$;
+
+
+ALTER FUNCTION public.foodprices() OWNER TO postgres;
+
+--
+-- Name: getfoodandcategoryid(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.getfoodandcategoryid() RETURNS TABLE(food_name character varying, cat_id integer, cat_name character varying)
     LANGUAGE plpgsql
     AS $$ 
 BEGIN
     RETURN QUERY
         SELECT "foods"."FoodName", "foods"."FoodCategoryId", "categories"."CategoryName" FROM public.foods
-        INNER JOIN public.categories ON "foods"."FoodCategoryId" = "categories"."Id"
-        WHERE "foods"."FoodCategoryId" = categoryId;
+        INNER JOIN public.categories ON "foods"."FoodCategoryId" = "categories"."Id";
 END;
 $$;
 
 
-ALTER FUNCTION public.getfood1(categoryid integer) OWNER TO postgres;
+ALTER FUNCTION public.getfoodandcategoryid() OWNER TO postgres;
 
 --
--- Name: getfood2(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: getfoodandprice(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION public.getfood2() RETURNS TABLE(food_name character varying, cat_id integer, cat_name character varying)
+CREATE FUNCTION public.getfoodandprice() RETURNS TABLE(food_name character varying, price_id integer, price_range character varying)
     LANGUAGE plpgsql
-    AS $$ 
+    AS $$
 BEGIN
     RETURN QUERY
-        SELECT "foods"."FoodName", "foods"."FoodCategoryId", "categories"."CategoryName" FROM public.foods
-        INNER JOIN public.categories ON "foods"."FoodCategoryId" = "categories"."Id"
-        ;
+        SELECT "foods"."FoodName", "foods"."PriceId", "price"."PriceRange" FROM public.foods
+        INNER JOIN public.price ON "foods"."PriceId" = "price"."Id";
 END;
 $$;
 
 
-ALTER FUNCTION public.getfood2() OWNER TO postgres;
+ALTER FUNCTION public.getfoodandprice() OWNER TO postgres;
+
+--
+-- Name: getfoodandtype(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.getfoodandtype() RETURNS TABLE(food_name character varying, type_id integer, type_name character varying)
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    RETURN QUERY
+        SELECT "foods"."FoodName", "foods"."FoodTypeId", "foodtype"."TypeName" FROM public.foods
+        INNER JOIN public.foodtype ON "foods"."FoodTypeId" = "foodtype"."Id";
+END;
+$$;
+
+
+ALTER FUNCTION public.getfoodandtype() OWNER TO postgres;
+
+--
+-- Name: ingredient_updates(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.ingredient_updates() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN  
+        INSERT INTO ingredients("Id", "IngredientName", "Description", "AccessId")
+        VALUES(OLD."Id", OLD."IngredientName", OLD."Description", OLD."AccessId");
+        RETURN OLD;
+   
+    END IF;
+
+    IF TG_OP = 'INSERT' THEN
+        INSERT INTO ingredients("Id", "IngredientName", "Description", "AccessId")
+        VALUES(NEW."Id", NEW."IngredientName", NEW."Description", NEW."AccessId");
+        RETURN NEW;
+    
+    END IF;
+
+    IF TG_OP = 'UPDATE' THEN
+        INSERT INTO ingredients("Id", "IngredientName", "Description", "AccessId")
+        VALUES(OLD."Id", OLD."IngredientName", OLD."Description", OLD."AccessId");
+	RETURN NEW;
+	
+	END IF;
+	
+END;
+$$;
+
+
+ALTER FUNCTION public.ingredient_updates() OWNER TO postgres;
+
+--
+-- Name: user_updates(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.user_updates() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN  
+        INSERT INTO users("Id", "Firstname", "Lastname", "Nickname", "Password", "CreationDate")
+        VALUES(OLD."Id", OLD."Firstname", OLD."Lastname", OLD."Nickname", OLD."Password", OLD."CreationDate");
+        RETURN OLD;
+   
+    END IF;
+
+    IF TG_OP = 'INSERT' THEN
+        INSERT INTO users("Id", "Firstname", "Lastname", "Nickname", "Password", "CreationDate")
+        VALUES(NEW."Id", NEW."Firstname", NEW."Lastname", NEW."Nickname", NEW."Password", NEW."CreationDate");
+        RETURN NEW;
+    
+    END IF;
+
+    IF TG_OP = 'UPDATE' THEN
+        INSERT INTO users("Id", "Firstname", "Lastname", "Nickname", "Password", "CreationDate")
+        VALUES(OLD."Id", OLD."Firstname", OLD."Lastname", OLD."Nickname", OLD."Password", OLD."CreationDate");
+	RETURN NEW;
+	
+	END IF;
+	
+END;
+$$;
+
+
+ALTER FUNCTION public.user_updates() OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -286,6 +447,17 @@ CREATE TABLE public.food_tool (
 
 
 ALTER TABLE public.food_tool OWNER TO postgres;
+
+--
+-- Name: foodcount; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.foodcount (
+    count bigint
+);
+
+
+ALTER TABLE public.foodcount OWNER TO postgres;
 
 --
 -- Name: foods; Type: TABLE; Schema: public; Owner: postgres
@@ -689,7 +861,7 @@ INSERT INTO public.difflevel ("Id", "LevelName") VALUES (5, 'Masterchef');
 -- Data for Name: favourites; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.favourites ("isFav", "FoodId", "CreationDate") VALUES (true, 1, '2020-01-10 00:00:00');
+INSERT INTO public.favourites ("isFav", "FoodId", "CreationDate") VALUES (true, 2, '2020-12-30 00:00:00');
 
 
 --
@@ -705,6 +877,13 @@ INSERT INTO public.food_ingredient ("FoodId", "IngredientId") VALUES (2, 2);
 --
 
 INSERT INTO public.food_tool ("FoodId", "ToolId") VALUES (3, 3);
+
+
+--
+-- Data for Name: foodcount; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.foodcount (count) VALUES (3);
 
 
 --
@@ -1038,6 +1217,34 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY ("Id");
+
+
+--
+-- Name: favourites food_fav_changes; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER food_fav_changes BEFORE INSERT OR UPDATE ON public.favourites FOR EACH ROW EXECUTE FUNCTION public.food_fav_changes();
+
+
+--
+-- Name: foods food_updates; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER food_updates AFTER INSERT OR DELETE OR UPDATE ON public.foods FOR EACH ROW EXECUTE FUNCTION public.food_updates();
+
+
+--
+-- Name: ingredients ingredient_updates; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER ingredient_updates AFTER INSERT OR DELETE OR UPDATE ON public.ingredients FOR EACH ROW EXECUTE FUNCTION public.ingredient_updates();
+
+
+--
+-- Name: users user_updates; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER user_updates AFTER INSERT OR DELETE OR UPDATE ON public.users FOR EACH ROW EXECUTE FUNCTION public.user_updates();
 
 
 --
