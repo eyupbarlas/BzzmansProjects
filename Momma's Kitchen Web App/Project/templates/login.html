@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+    <h3 style="color: darkred">Login</h3>
+    <hr>
+
+    <form action="{{ request.path }}" method="POST">
+        <label for="Nickname">Nickname</label><br>
+        <input type="text" name="nickname" placeholder="Nickname"><br>
+        <br>
+        <label for="Password">Password</label><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <br>
+        <button type="submit" id="btnregister" class="btn btn-danger">Submit</button>
+    </form>
+
+{% endblock body %}

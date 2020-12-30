@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h3 style="color: darkred">Register</h3>
+    <hr>
+
+    <form action = "{{ request.path }}" method = "post">
+        <label for = "Firstname">First Name</label><br>
+        <input type = "text" name = "firstname" placeholder = "First Name" /><br>
+        <br>
+        <label for = "Lastname">Last Name</label><br>
+        <input type = "text" name = "lastname" placeholder = "Last Name" /><br>
+        <br>
+        <label for = "Nickname">Nickname</label><br>
+        <input type = "text" name = "nickname" placeholder = "Nickname" /><br>
+        <br>
+        <label for = "Email">Email Address</label><br>
+        <input type = "text" name = "email" placeholder = "Email Address" /><br>
+        <br>
+        <label for = "Password">Password</label><br>
+        <input type = "password" name = "password" placeholder = "Password" /><br>
+        <br>
+        <button type="submit" id="btnregister" class="btn btn-danger">Submit</button>
+     </form>    
+
+{% endblock body %}

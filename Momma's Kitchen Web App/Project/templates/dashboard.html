@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="jumbotron text-center" style="background-color: lightblue;">
+    <h1> {{session["nickname"]}}'s Recipes</h1>
+</div>
+<hr>
+<h4>Options</h4>
+<br>
+<a href="/dashboard/addfood" class="btn btn-danger"> Add Food </a>
+<p> </p>
+<hr>
+
+{% if result %}
+<h3>Foods Dashboard</h3>
+<hr>
+<table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Food Name</th>
+        <th scope="col">Creation Date</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody >
+      
+      {% for food in result %}  
+          <tr>
+              <td><a href="/food/{{food['Id']}}">{{food['FoodName']}}</a></td>  
+              <td>{{food["CreationDate"]}}</td>
+              <td><a href="/update/{{food['Id']}}" class="btn btn-danger">Update </a></td>
+              <td><a href="/delete/{{food['Id']}}" class="btn btn-danger">Delete </a></td>
+          </tr>
+      {% endfor %}
+          
+    </tbody>
+  </table>
+{% else %}
+<div class = "alert alert-danger" > No note record exist. </div>
+{% endif %}
+    
+
+
+{% endblock body %}

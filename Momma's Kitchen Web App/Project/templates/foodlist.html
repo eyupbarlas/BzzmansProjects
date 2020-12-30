@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h3>Food List</h3>
+    <hr>
+    
+    {% if query_result %}
+
+    <ul class="list-group">
+        {% for food in query_result %}
+        <li class="list-group-item" style="background-color: lightblue;"><a href="/food/{{food['Id']}}">{{food['FoodName']}}</a></li>
+        {% endfor %}
+
+        {% else %}
+        <div class = "alert alert-danger" > No records. </div>
+        {% endif %}
+    <hr>
+
+    </ul>
+
+{% endblock body %}
+     
