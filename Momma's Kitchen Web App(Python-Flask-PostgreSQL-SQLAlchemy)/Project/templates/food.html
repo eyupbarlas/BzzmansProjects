@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+{% if myFood %}
+<h3 style="color: firebrick;">
+    {{myFood['FoodName']}}
+    <hr>
+    Creation Date : {{myFood['CreationDate']}}
+    <hr>
+</h3>
+<h5 style="color: firebrick;">Category Id: {{myFood['FoodCategoryId']}} | <!--bu idleri isimlerle nasıl değişirim?-->
+Cuisine Id: {{myFood['CuisineId']}} |
+Difficulty Id: {{myFood['DifficultyId']}} |
+Calories: {{myFood['Calories']}} |
+Favourite: {{myFood['isFavourite']}} |
+Price Id: {{myFood['PriceId']}} |
+Rating Id: {{myFood['RatingId']}}</h5>
+<hr>
+<h3 style="color: firebrick;">Recipe: </h3>
+<br>
+<p>{{myFood['Recipe']}}</p>
+
+{% else %}
+<div class="alert alert-warning"> Food does not exist. </div>
+{% endif %}
+
+
+{% endblock body%}

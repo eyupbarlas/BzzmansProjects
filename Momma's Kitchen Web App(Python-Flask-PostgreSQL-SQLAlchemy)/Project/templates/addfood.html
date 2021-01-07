@@ -1,0 +1,131 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h2>Add Food</h2>
+<hr>
+<div class="container">
+    <form method="POST">
+        <label for="Food Name">Food Name</label><br>
+        <input type="text" style="background-color: lightskyblue;" name="foodname" placeholder="Food Name"><br>
+        <br>
+
+        <div class="dropdown">
+            <label for="Food Category">Food Category</label><br>
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonCategory" name="category" data-toggle="dropdown" aria>
+                Category
+            </button> 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonCategory">
+                {% for category in categoryQuery %}
+                    <a class="dropdown-item" href="#" inputmode="text">{{category['CategoryName']}}</a>
+                {% endfor %}
+            </div>
+            <br>
+        </div>
+        <div class="dropdown">
+            <label for="Cuisine">Cuisine</label><br>
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonCuisine" name="cuisine" data-toggle="dropdown" aria>
+                Cuisine
+            </button> 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonCuisine">
+                {% for cuisine in cuisineQuery %}
+                    <a class="dropdown-item" href="#">{{cuisine['CuisineName']}}</a>
+                {% endfor %}
+            </div>
+            <br>
+        </div>
+        <div class="dropdown">
+            <label for="Difficulty">Difficulty</label><br>
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonDiff" name="difficulty" data-toggle="dropdown" aria>
+                Difficulty
+            </button> 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonDiff">
+                {% for diff in diffQuery %}
+                    <a class="dropdown-item" href="#" inputmode="text">{{diff['LevelName']}}</a>
+                {% endfor %}
+            </div>
+            <br>
+        </div>
+        <div class="dropdown">
+            <label for="Price">Price(approx.)($)</label><br>
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonPrice" name="price" data-toggle="dropdown" aria>
+                Price Range
+            </button> 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonPrice">
+                {% for price in priceQuery %}
+                    <a class="dropdown-item" href="#">{{price['PriceRange']}}</a>
+                {% endfor %}
+            </div>
+            <br>
+        </div>
+        <div class="dropdown">
+            <label for="Rating">Rating(out of 5)</label><br>
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonRating" name="rating" data-toggle="dropdown" aria>
+                Rating
+            </button> 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonRating">
+                {% for rate in ratingQuery %}
+                    <a class="dropdown-item" href="#">{{rate['RatingScore']}}</a>
+                {% endfor %}
+            </div>
+            <br>
+        </div>
+        <div class="dropdown">
+            <label for="Cook Place">Cook Place</label><br>
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonCookPlace" name="cookplace" data-toggle="dropdown" aria>
+                Cook Place
+            </button> 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonCookPlace">
+                {% for place in cookplaceQuery %}
+                    <a class="dropdown-item" href="#">{{place['PlaceName']}}</a>
+                {% endfor %}
+            </div>
+            <br>
+        </div>
+        <div class="dropdown">
+            <label for="Is Favourite">Is Favourite</label><br>
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonIsFav" name="isfav" data-toggle="dropdown" aria>
+                Is Favourite
+            </button> 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonIsFav">
+                <a class="dropdown-item" href="#">Yes</a>
+                <a class="dropdown-item" href="#">No</a> 
+            </div>
+            <br>
+        </div>
+        <div class="dropdown">
+            <label for="Food Type">Food Type</label><br>
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButtonFoodType" name="foodtype" data-toggle="dropdown" aria>
+                Food Type
+            </button> 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonFoodType">
+                {% for type in foodtypeQuery %}
+                    <a class="dropdown-item" href="#">{{type['TypeName']}}</a>
+                {% endfor %}
+            </div>
+            <br>
+        </div>
+        
+        <br>
+        <label for="Cooking Time">Cooking Time</label><br>
+        <input type="text" style="background-color: lightskyblue;" name="cooktime" placeholder="Cooking Time"><br>
+
+        <br>
+        <label for="Calories">Calories</label><br>
+        <input type="text" style="background-color: lightskyblue;" name="calories" placeholder="Calories"><br>
+        <br>
+
+        <label for="Yield">Yield</label><br>
+        <input type="text" style="background-color: lightskyblue;" name="yield" placeholder="Yield"><br>
+        <br>
+
+        <label for="Recipe">Recipe</label><br>
+        <input type="text" style="background-color: lightskyblue;" name="recipe" placeholder="Recipe"><br>
+        
+        <button type="submit" id="btnaddfood" class="btn btn-danger">Save Food</button>   
+        <hr>
+    </form>
+</div>
+
+
+{% endblock body %}
