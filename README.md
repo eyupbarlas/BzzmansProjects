@@ -18,4 +18,7 @@ Momma's Kitchen WebApp:
 * PostgreSQL
 * SQLAlchemy
 
+8 Rooks Problem:
+* C#
+
 
