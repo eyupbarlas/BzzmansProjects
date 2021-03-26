@@ -1,7 +1,0 @@
-C:\Users\PC\Documents\GitHub\BzzmansProjects\8 Rooks Problem with C#\8 Rooks Problem\bin\Debug\8 Rooks Problem.exe.config
-C:\Users\PC\Documents\GitHub\BzzmansProjects\8 Rooks Problem with C#\8 Rooks Problem\bin\Debug\8 Rooks Problem.exe
-C:\Users\PC\Documents\GitHub\BzzmansProjects\8 Rooks Problem with C#\8 Rooks Problem\bin\Debug\8 Rooks Problem.pdb
-C:\Users\PC\Documents\GitHub\BzzmansProjects\8 Rooks Problem with C#\8 Rooks Problem\obj\Debug\8 Rooks Problem.csprojAssemblyReference.cache
-C:\Users\PC\Documents\GitHub\BzzmansProjects\8 Rooks Problem with C#\8 Rooks Problem\obj\Debug\8 Rooks Problem.csproj.CoreCompileInputs.cache
-C:\Users\PC\Documents\GitHub\BzzmansProjects\8 Rooks Problem with C#\8 Rooks Problem\obj\Debug\8 Rooks Problem.exe
-C:\Users\PC\Documents\GitHub\BzzmansProjects\8 Rooks Problem with C#\8 Rooks Problem\obj\Debug\8 Rooks Problem.pdb
