@@ -1,5 +1,5 @@
 Türkçe/
-                        --------------- Bzzman'ın Instagram Yorum Botu v1.0 -------------------
+#                        --------------- Bzzman'ın Instagram Yorum Botu v1.0 -------------------
 
         Kurallar:
             * Bu bot sadece son posta gidip, like atıp postu kaydeder ve yorum atmaya başlar.
@@ -12,7 +12,7 @@ Türkçe/
         Bir Bzzman prodüksiyonudur.
 
 English/
-                        --------------- Bzzman's Instagram Comment Bot v1.0 -------------------                   
+#                        --------------- Bzzman's Instagram Comment Bot v1.0 -------------------                   
 
         Rules:
             * This bot goes to last post, likes and saves the post, then starts commenting.
