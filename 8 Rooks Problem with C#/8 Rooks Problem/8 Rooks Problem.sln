@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8 Rooks Problem", "8 Rooks Problem.csproj", "{8E4093E8-7833-40CB-B289-88D72182C46E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E4093E8-7833-40CB-B289-88D72182C46E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E4093E8-7833-40CB-B289-88D72182C46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E4093E8-7833-40CB-B289-88D72182C46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E4093E8-7833-40CB-B289-88D72182C46E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A237ADB-6E89-4129-A4CB-4145BCB96075}
+	EndGlobalSection
+EndGlobal
