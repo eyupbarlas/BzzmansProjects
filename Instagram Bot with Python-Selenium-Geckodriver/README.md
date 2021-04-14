@@ -12,7 +12,7 @@ Türkçe/
         Bir Bzzman prodüksiyonudur.
 
 English/
-        #               --------------- Bzzman's Instagram Comment Bot v1.0 -------------------                   
+#                       --------------- Bzzman's Instagram Comment Bot v1.0 -------------------                   
 
         Rules:
             * This bot goes to last post, likes and saves the post, then starts commenting.
