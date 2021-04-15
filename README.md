@@ -1,5 +1,5 @@
 # BzzmansProjects
-This is a public repository created by Bzzman. 
+This is a public repository created by Eyüp Barlas. 
 
 Instagram Bot:
 * Python
