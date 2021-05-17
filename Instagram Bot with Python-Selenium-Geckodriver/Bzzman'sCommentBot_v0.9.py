@@ -244,4 +244,4 @@ print("Commenting successful...")
 print("\n")
 print("A Bzzman production.")
 
-browser.close
+browser.close()
